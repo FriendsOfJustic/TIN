@@ -8,7 +8,7 @@
 
 #define WIDTH  1280
 #define HEIGHT 720
-#define TIME  100
+#define TIME  10
 #define RATE 10
 
 class Point
@@ -189,7 +189,7 @@ void Point_to_gragh(Point& p,const Point& origin, double scaling_X,double scalin
 
 
 	setcolor(BLUE);
-	setfillcolor(GREEN);
+	setfillcolor(BLACK);
 	fillcircle(easy_x, easy_y, 3);
 
 };
@@ -328,137 +328,6 @@ bool JudgePoint(Point& pt1, Point& pt2, Point& pt3, Point& node) {//比较链表中no
 	return ((pow(dist11, 2) + pow(dist12, 2) - pow(dist12_3, 2)) / (2 * dist11 * dist12) < (pow(dist21, 2) + pow(dist22, 2) - pow(dist12_3, 2)) / (2 * dist21 * dist22)); //余弦判断角度
 }
 
-////以最小外界圆内没有其他点为条件生成三角网
-//bool form_trangle_by_circle(Line& root, Point& newpoint, std::vector<Point>& mypoint, std::vector<Line>& myline, std::vector<Triangle>& mytriangle, double& min_x, double& min_y)
-//{
-//	Point circle;
-//	double r;
-//	for (int i = 0; i < mypoint.size(); i++)
-//	{
-//		if (mypoint[i] != root.left_point && mypoint[i] != root.right_point )  //与直线建立三角形的点必须是没有用过的
-//		{
-//			continue;
-//		}
-//
-//		if (myline.size() != 1 && (is_same_side(root, mypoint[i], min_x, min_y) || mypoint[i] == root.third) )
-//		{
-//			continue;
-//		}
-//
-//		//这里计算外接圆圆心的时候需要进行一个坐标平移，以(min_x,min_y)为原点的坐标系建立，否则计算外接圆的时候数据可能会溢出
-//		CircleCenter(root.left_point.x - min_x, root.left_point.y - min_y, root.right_point.x - min_x, root.right_point.y - min_y, mypoint[i].x - min_x, mypoint[i].y - min_y, &(circle.x), &(circle.y), &r);
-//		int flag = 1;
-//		Point p3 = Point(-1, NULL, min_x, min_y, 0);
-//		for (int j = 0; j < mypoint.size(); j++) //这里不用做检查 因为即使这个点是三角形的三点，会在圆的边界上
-//		{
-//			//if (is_in_circle(mypoint[j], circle.x, circle.y, r, min_x, min_y))   //所有点都必须不在圆内
-//			//{
-//			//	flag = 0;
-//			//	break;
-//			//}
-//
-//			if (p3 == Point(-1, NULL, min_x, min_y, 0))
-//			{
-//				p3 = mypoint[j];
-//			}
-//			else
-//			{
-//				if (JudgePoint(root.left_point, root.right_point, p3, mypoint[j]))
-//				{
-//					p3 = mypoint[j];
-//				}
-//			}
-//		}
-//
-//		if (p3 != Point(-1, NULL, min_x, min_y, 0))
-//		{
-//			newpoint = p3;
-//			return true;
-//		}
-//	}
-//
-//	return false;
-//}
-//
-////以最大角为标准生成三角形
-//bool form_trangle_by_angle(Line& root, Point& newpoint ,std::vector<Point>& mypoint, std::vector<Line>& myline, std::vector<Triangle>& mytriangle, double& min_x, double& min_y)
-//{
-//	Point circle;
-//	double r;
-//	for (int i = 0; i < mypoint.size(); i++)
-//	{
-//		if(mypoint[i]!=root.left_point && mypoint[i]!=root.right_point && (myline.size()==1 || (is_same_side(root, mypoint[i], min_x, min_y) == false && mypoint[i]!=root.third) ))  //与直线建立三角形的点必须是没有用过的
-//		{
-//			//这里计算外接圆圆心的时候需要进行一个坐标平移，以(min_x,min_y)为原点的坐标系建立，否则计算外接圆的时候数据可能会溢出
-//			CircleCenter(root.left_point.x - min_x, root.left_point.y - min_y, root.right_point.x - min_x, root.right_point.y - min_y, mypoint[i].x - min_x, mypoint[i].y - min_y, &(circle.x), &(circle.y), &r);
-//			int flag = 1;
-//			Point p3 = Point(-1, NULL, min_x, min_y, 0);
-//			for (int j = 0; j < mypoint.size(); j++) //这里不用做检查 因为即使这个点是三角形的三点，会在圆的边界上
-//			{
-//				if (is_in_circle(mypoint[j], circle.x, circle.y, r, min_x, min_y))   //所有点都必须不在圆内
-//				{
-//					flag = 0;
-//					break;
-//				}
-//			}
-//			if (flag)
-//			{
-//				newpoint = mypoint[i];
-//				return true;
-//			}
-//		}
-//	}
-//
-//	return false;
-//}
-//
-//void TIN(Line& root,std::vector<Point>& mypoint,std::vector<Line>& myline,std::vector<Triangle>& mytriangle,double &min_x,double &min_y ,double scaling_x, double scaling_y)
-//{
-//	Point newpoint;
-//	if (form_trangle_by_angle(root,newpoint,mypoint,myline,mytriangle, min_x, min_y))    //看是否还能形成三角形  能->返回真，并且将第三点的下标push到数组used_point中		          
-//	{                                                                                                  //不能->返回假
-//		//根据line类型的参数寻找第三个点
-//		Line newleftline;
-//		Line newrightline;
-//
-//		line_to_gragh(root, Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y, GREEN);
-//		Sleep(TIME);
-//
-//
-//		newleftline=make_line(root.left_point, newpoint,root.right_point);    //新形成的线的 左右点 一定要确定清楚 
-//		line_to_gragh(newleftline, Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y, RED);
-//		Sleep(TIME);
-//		
-//		newrightline=make_line(root.right_point, newpoint,root.left_point);    //生成三角形的右边
-//		line_to_gragh(newrightline, Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y, RED);
-//		Sleep(TIME);
-//		
-//		//一线一点连成三角形，分别将线和三角形录入相应的数组
-//		Triangle newT(root, newleftline, newrightline);
-//		if (std::find(myline.begin(), myline.end(), newleftline) == myline.end())
-//		{
-//			myline.push_back(newleftline);
-//			TIN(newleftline, mypoint, myline, mytriangle, min_x, min_y, scaling_x, scaling_y);
-//		}
-//		if (std::find(myline.begin(), myline.end(), newrightline) == myline.end())
-//		{
-//			myline.push_back(newrightline);
-//			TIN(newrightline, mypoint, myline, mytriangle, min_x, min_y, scaling_x, scaling_y);
-//		}
-//		mytriangle.push_back(newT);
-//
-//		//递归  根左右 前序遍历
-//		//TIN(left...............);
-//		//TIN(right..............);
-//	}
-//	else
-//	{
-//		line_to_gragh(root, Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y, GREEN);
-//		Sleep(TIME);
-//	}
-//}
-
-
 
 bool is_same_line(Line& l1,const Line& l2)    //判断传入的两条线在几何上是否是一样的
 {
@@ -529,19 +398,19 @@ int main()
 
 
 	//让整个范围与坐标系空出 整个图幅的1/50 这样边界点能完整显示
-	min_x -= WIDTH / 50;
-	min_y -= HEIGHT / 50;
-	max_x += WIDTH / 50;
-	max_y += HEIGHT / 50;
+	min_x -= (max_x - min_x) / 70;
+	min_y -= (max_y - min_y) / 70;
+	max_x += (max_x - min_x) / 70;
+	max_y += (max_y - min_y) / 70;
 
 	double scaling_x = (max_x - min_x) / WIDTH;
 	double scaling_y = (max_y - min_y) / HEIGHT;
 
 	
-	//for (auto e : mypoint)  //将点先打在屏幕上
-	//{
-	//	Point_to_gragh(e, Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y);
-	//}
+	for (auto e : mypoint)  //将点先打在屏幕上
+	{
+		Point_to_gragh(e, Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y);
+	}
 
 
 
@@ -565,13 +434,6 @@ int main()
 	}
 
 
-
-	/*递归生成三角网
-	myline.push_back(MIN_line);
-	TIN(MIN_line, mypoint, myline, mytriangle,min_x,min_y, scaling_x, scaling_y);*/
-
-
-
 	//层序遍历生成三角网
 	//生成第一个三角形
 	double r, a, b;
@@ -588,13 +450,13 @@ int main()
 		}
 	}
 	myline.push_back(make_line(MIN_line.left_point, MIN_line.right_point, p3));
-	//line_to_gragh(MIN_line, Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y,RED);
+	line_to_gragh(MIN_line, Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y,RED);
 
 	myline.push_back(make_line(p3,mypoint[pt1],mypoint[pt2]));
-	//line_to_gragh(make_line(p3, mypoint[pt1], mypoint[pt2]), Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y,RED);
+	line_to_gragh(make_line(p3, mypoint[pt1], mypoint[pt2]), Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y,RED);
 
 	myline.push_back(make_line(p3, mypoint[pt2], mypoint[pt1]));
-	//line_to_gragh(make_line(p3, mypoint[pt2], mypoint[pt1]), Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y,RED);
+	line_to_gragh(make_line(p3, mypoint[pt2], mypoint[pt1]), Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y,RED);
 
 	mytriangle.push_back(Triangle(&myline[0], &myline[1], &myline[2]));
 
@@ -604,9 +466,9 @@ int main()
 	Point p2;  //用来记录 遍历时线两个端点的临时变量
 	for (int i = 0; i < myline.size(); i++)
 	{
-		/*setlinecolor(GREEN);
+		setlinecolor(GREEN);
 		line_to_gragh(myline[i], Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y,GREEN);
-		Sleep(TIME);*/
+		Sleep(TIME);
 		int ret = 0;
 		if (myline[i].flag > 0)
 			continue;
@@ -617,12 +479,12 @@ int main()
 		p3 = Point(-1, NULL, min_x, min_y, 0);
 		for (int j = 0; j < mypoint.size(); j++)
 		{
-			if (p1 == mypoint[j] || p2 == mypoint[j])
+			if (p1 == mypoint[j] || p2 == mypoint[j])    // 判断待定点是否与基线边的两个端点相同
 			{
 				continue;
 			}
 
-			if (is_same_side(myline[i], mypoint[j],min_x,min_y))
+			if (is_same_side(myline[i], mypoint[j],min_x,min_y))  //判断相对点和待定点是否在同一边
 			{
 				continue;
 			}
@@ -631,7 +493,7 @@ int main()
 				p3 = mypoint[j];
 			else
 			{
-				if (JudgePoint(p1, p2, p3, mypoint[j]))
+				if (JudgePoint(p1, p2, p3, mypoint[j]))    // 判断是否满足最大角原则
 					p3 = mypoint[j];
 			}
 		}
@@ -649,8 +511,9 @@ int main()
 			{
 				myline.push_back(ln13);
 
-			/*	line_to_gragh(ln13, Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y,RED);
-				Sleep(TIME);*/
+				line_to_gragh(ln13, Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y,RED);
+				Sleep(TIME);
+
 				tri_l1 = &myline[myline.size() - 1];   //说明ln13不在myline中属于新生成的边，直接指向myline数组新插入的最后一个元素
 			}
 			else
@@ -663,14 +526,14 @@ int main()
 			if ((ret2 = is_in_myline(ln23, myline))<0)
 			{
 				myline.push_back(ln23);
-				tri_l2 = &myline[myline.size() - 1];
-			/*	
+				tri_l2 = &myline[myline.size() - 1];  //说明ln23不在myline中属于新生成的边，直接指向myline数组新插入的最后一个元素
+				
 				line_to_gragh(ln23, Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y,RED);
-				Sleep(TIME);*/
+				Sleep(TIME);
 			}
 			else
 			{
-				tri_l2 = &myline[ret2];
+				tri_l2 = &myline[ret2];           //ln23在myline中已经存在了，指针指向ret1下标处的myline数组的值
 				myline[ret2].flag=2;
 			}
 
@@ -685,8 +548,6 @@ int main()
 			myline[i].flag = 1;
 	}
 
-
-
 	/*for (auto e : myline)
 	{
 		if(e.flag==1)
@@ -694,28 +555,6 @@ int main()
 		else
 			line_to_gragh(e, Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y, GREEN);
 	}*/
-
-	for (auto e : myline)
-	{
-		setlinestyle(0, 2, NULL, 0UL);
-		line_to_gragh(e, Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y, BLACK);
-	}
-
-
-	//for (auto e : mypoint)  //将点先打在屏幕上
-	//{
-	//	Point_to_gragh(e, Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y);
-	//}
-
-
-
-	/*int count = 0;
-	for (auto e : myline)
-	{
-		if (e.flag == 2)
-			count++;
-	}
-	std::cout << count << std:: endl;*/
 
 	double interval = (max_z - min_z) / RATE;
 
@@ -756,24 +595,18 @@ int main()
 			{
 				if (*(e.left) == *close || *(e.right) == *close || *(e.root) == *close)  //找到开曲线flag==1的边所在的三角形
 				{
-					build_close_line(e, Hz, open, min_x, min_y, scaling_x, scaling_y, mytriangle, Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y);
+					build_close_line(e, Hz, close, min_x, min_y, scaling_x, scaling_y, mytriangle, Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y);
 					break;
 				}
 			}
 		}
-		//if (flag == 1)  //开曲线
-		//{
-		//}
-		//else   //闭曲线
-		//{
-		//}
-
 	}
 
 	for (auto e : mypoint)  //将点先打在屏幕上
 	{
 		Point_to_gragh(e, Point(0, NULL, min_x, min_y, 0), scaling_x, scaling_y);
 	}
+
 	getchar();
 	closegraph();
 }

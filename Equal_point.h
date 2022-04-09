@@ -142,14 +142,14 @@ void build_open_line(Triangle& t,double h,Line* first, double min_x, double min_
 		myEqualline.push_back(Equal_line(myEqualpoint[i], myEqualpoint[i + 1]));
 	}
 
-	for (auto e : myEqualline)
+	/*for (auto e : myEqualline)
 	{
 		setlinestyle(0, 1, NULL, 0UL);
 		Equalline_to_gragh(e, Equal_point(min_x, min_y, 0), scaling_x, scaling_y, RED);
-	}
+	}*/
 
 	
-	/*POINT* p=new POINT[myEqualpoint.size()];
+	POINT* p=new POINT[myEqualpoint.size()];
 	for (int i = 0; i < myEqualpoint.size(); i++)
 	{
 		p[i].x = (LONG)((myEqualpoint[i].x - origin.x) / scaling_X);
@@ -157,7 +157,7 @@ void build_open_line(Triangle& t,double h,Line* first, double min_x, double min_
 	}
 	setlinecolor(BLACK);
 	setlinestyle(0, 1, NULL, 0UL);
-	polybezier(p, myEqualpoint.size());*/
+	polybezier(p, myEqualpoint.size());
 }
 
 
@@ -169,6 +169,7 @@ void build_close_line(Triangle& t, double h, Line* first, double min_x, double m
 	Line* next = nullptr;   //找到目前三角形中的另一条与等高线相交的边 
 	Line* begin = first;
 	Triangle n = t;
+	myEqualpoint.push_back(find_equal_point(*first, h));
 	do
 	{
 		//找出另一个与等高线相交的边
@@ -180,20 +181,17 @@ void build_close_line(Triangle& t, double h, Line* first, double min_x, double m
 			next = n.root;
 
 		//
-		myEqualpoint.push_back(find_equal_point(*first, h));
+		//myEqualpoint.push_back(find_equal_point(*first, h));
 		myEqualpoint.push_back(find_equal_point(*next, h));
 
 		//
-		if ((*next).flag != 1)
+		for (auto& e : mytriangle)
 		{
-			for (auto& e : mytriangle)
+			if (n != e && e.is_have_line(*next))
 			{
-				if (n != e && e.is_have_line(*next))
-				{
-					first = next;
-					n = e;
-					break;
-				}
+				first = next;
+				n = e;
+				break;
 			}
 		}
 	} while (next!=begin);

@@ -1,0 +1,11 @@
+﻿  递归法生成等高线.cpp
+D:\学习资料\比特教育\源代码\Learning_code\TIN三角网等高线生成\递归法等高线生成\Project2\递归法生成等高线.cpp(227,12): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+D:\学习资料\比特教育\源代码\Learning_code\TIN三角网等高线生成\递归法等高线生成\Project2\递归法生成等高线.cpp(251,13): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+D:\学习资料\比特教育\源代码\Learning_code\TIN三角网等高线生成\递归法等高线生成\Project2\递归法生成等高线.cpp(342,21): warning C4018: “<”: 有符号/无符号不匹配
+D:\学习资料\比特教育\源代码\Learning_code\TIN三角网等高线生成\递归法等高线生成\Project2\递归法生成等高线.cpp(335,9): warning C4101: “r”: 未引用的局部变量
+D:\学习资料\比特教育\源代码\Learning_code\TIN三角网等高线生成\递归法等高线生成\Project2\递归法生成等高线.cpp(386,20): warning C4018: “<”: 有符号/无符号不匹配
+D:\学习资料\比特教育\源代码\Learning_code\TIN三角网等高线生成\递归法等高线生成\Project2\递归法生成等高线.cpp(394,22): warning C4018: “<”: 有符号/无符号不匹配
+D:\学习资料\比特教育\源代码\Learning_code\TIN三角网等高线生成\递归法等高线生成\Project2\递归法生成等高线.cpp(478,16): warning C4018: “<”: 有符号/无符号不匹配
+D:\学习资料\比特教育\源代码\Learning_code\TIN三角网等高线生成\递归法等高线生成\Project2\递归法生成等高线.cpp(553,20): warning C4018: “<”: 有符号/无符号不匹配
+D:\学习资料\比特教育\源代码\Learning_code\TIN三角网等高线生成\递归法等高线生成\Project2\递归法生成等高线.cpp(555,25): warning C4018: “<”: 有符号/无符号不匹配
+  Project2.vcxproj -> D:\学习资料\比特教育\源代码\Learning_code\TIN三角网等高线生成\递归法等高线生成\Project2\Debug\Project2.exe
