@@ -1,2 +1,0 @@
-D:\学习资料\比特教育\源代码\Learning_code\TIN三角网等高线生成\递归法等高线生成\Project2\Debug\Project2.exe
-D:\学习资料\比特教育\源代码\Learning_code\TIN三角网等高线生成\递归法等高线生成\Project2\Debug\Project2.pdb
